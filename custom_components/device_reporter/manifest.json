@@ -2,9 +2,10 @@
   "domain": "device_reporter",
   "name": "Device Reporter",
   "version": "1.0.0",
-  "documentation": "https://github.com/yourusername/ha-device-reporter",
+  "documentation": "https://github.com/izzat556/smarthouse",
+  "issue_tracker": "https://github.com/izzat556/smarthouse/issues",
   "requirements": ["websockets"],
-  "codeowners": ["izzat556"],
+  "codeowners": ["@izzat556"],
   "iot_class": "local_push"
 }
 
