@@ -7,7 +7,7 @@ DOMAIN = "device_reporter"
 _LOGGER = logging.getLogger(__name__)
 
 # ⚡ Укажи IP своего сервера
-SERVER_WS_URL = "ws://92.168.1.106:1723"
+SERVER_WS_URL = "ws://192.168.1.106:1723"
 
 async def async_setup(hass, config):
     """Set up WebSocket connection to external server."""
