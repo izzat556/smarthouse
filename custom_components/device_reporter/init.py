@@ -1,5 +1,5 @@
-import logging
 import asyncio
+import logging
 import json
 import websockets
 
@@ -12,12 +12,16 @@ SERVER_WS_URL = "ws://localhost:1723"
 async def async_setup(hass, config):
     """Set up WebSocket connection to external server."""
 
+    websocket_conn = {"ws": None}  # store connection reference
+
     async def listen_to_server():
         while True:
             try:
                 _LOGGER.info("Connecting to server WebSocket %s", SERVER_WS_URL)
                 async with websockets.connect(SERVER_WS_URL) as websocket:
+                    websocket_conn["ws"] = websocket
                     _LOGGER.info("Connected to server")
+
                     async for message in websocket:
                         try:
                             data = json.loads(message)
@@ -41,7 +45,28 @@ async def async_setup(hass, config):
                 _LOGGER.error("WebSocket connection error: %s", e)
 
             _LOGGER.info("Reconnecting in 5s...")
+            websocket_conn["ws"] = None
             await asyncio.sleep(5)
+
+    # ✅ Service to send ON/OFF to server
+    async def send_to_server_service(call):
+        if websocket_conn["ws"] is not None:
+            try:
+                payload = {
+                    "entity_id": call.data.get("entity_id"),
+                    "action": call.data.get("action")
+                }
+                await websocket_conn["ws"].send(json.dumps(payload))
+                _LOGGER.info("Sent to server: %s", payload)
+            except Exception as e:
+                _LOGGER.error("Failed to send: %s", e)
+        else:
+            _LOGGER.warning("No active WebSocket connection")
+
+    # Register service in Home Assistant
+    hass.services.async_register(
+        DOMAIN, "send_command", send_to_server_service
+    )
 
     hass.loop.create_task(listen_to_server())
     return True
