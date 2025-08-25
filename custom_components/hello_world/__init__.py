@@ -22,7 +22,7 @@ _LOGGER = logging.getLogger(__name__)
 def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up a skeleton component."""
     # States are in the format DOMAIN.OBJECT_ID.
-    hass.states.set('hello_world.Hello_World', 'Works!')
+    hass.states.set('hello_world.Hello_World', 'pidr')
 
     # Return boolean to indicate that initialization was successfully.
     _LOGGER.info("Hello World component is loaded!")
