@@ -25,5 +25,5 @@ def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     hass.states.set('hello_world.Hello_World', 'Works!')
 
     # Return boolean to indicate that initialization was successfully.
-     _LOGGER.info("Hello World component is loaded!")
+    _LOGGER.info("Hello World component is loaded!")
     return True
