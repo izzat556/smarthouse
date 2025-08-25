@@ -14,10 +14,10 @@ from __future__ import annotations
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.typing import ConfigType
-import logging
+
 # The domain of your component. Should be equal to the name of your component.
 DOMAIN = "hello_world"
-_LOGGER = logging.getLogger(__name__)
+
 
 def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up a skeleton component."""
@@ -25,5 +25,5 @@ def setup(hass: HomeAssistant, config: ConfigType) -> bool:
     hass.states.set('hello_world.Hello_World', 'pidr')
 
     # Return boolean to indicate that initialization was successfully.
-    _LOGGER.info("Hello World component is loaded!")
+
     return True
